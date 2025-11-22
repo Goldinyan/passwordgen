@@ -1,12 +1,14 @@
+"use client";
+import { useEffect, useState } from "react";
+import MainView from "./mainView";
 
-import MainView from "./MainView";
+//Guardify
 
 export default function Home() {
-  return(
-    <>
-    <div className="flex justify-center bg-gradient-to-r from-slate-900 to-slate-700 items-center  w-full h-full  ">
-    <MainView />
+  
+  return (
+    <div className="bg-Xprimary dark:bg-Xprimary-dark w-full h-full min-h-screen ">
+     <MainView /> 
     </div>
-     </>
-  )
+  );
 }

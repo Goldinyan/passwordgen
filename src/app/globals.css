@@ -1,49 +1,29 @@
 @import "tailwindcss";
 
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+
 @theme {
-  --font-FigtreeBold: Figtree-Bold, "sans-serif";
-  --font-Figtree: Figtree, "sans-serif";
-  --font-FigtreeMedium: Figtree-Medium, "sans-serif";
-  --font-FigtreeSemiBold: Figtree-SemiBold, "sans-serif";
-  --font-FigtreeExtraBold: Figtree-ExtraBold, "sans-serif";  
+  --color-Xprimary: #FAFAFA;
+  --color-Xprimary-dark: #000000;
+  --color-Xborder-dark: #2A2A2A;
+  --color-XlightText: #B9B9B9;
+  --color-Xbg-darkGray: #0A0A0A;
+  --color-Xborder-light: #E8E8E8;
 }
 
 html,
 body {
-  background-color: bg-gradient-to-r from-slate-900 to-slate-700;
   max-width: 100vw;
   overflow-x: hidden;
+  
 }
 
-@font-face {
-  font-family: Figtree-Bold;
-  src: url("/Figtree-Bold.ttf") format("truetype");
+@theme {
+  --font-Figtree: Figtree, sans-serif;
+  --font-FigtreeBold: Figtree-Bold, sans-serif;
+  --font-FigtreeMedium: Figtree-Medium, sans-serif;
+  --font-FigtreeSemiBold: Figtree-SemiBold, sans-serif;
+  --font-FigtreeExtraBold: Figtree-ExtraBold, sans-serif;
 }
-
-@font-face {
-  font-family: Figtree;
-  src: url("/Figtree-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Figtree-Medium;
-  src: url("/Figtree-Medium.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Figtree-SemiBold;
-  src: url("/Figtree-SemiBold.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Figtree-ExtraBold;
-  src: url("/Figtree-ExtraBoldItalic.ttf") format("truetype");
-}
-
-
-
-
-
-
-
