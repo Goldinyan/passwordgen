@@ -14,16 +14,28 @@
 }
 
 html,
-body {
+body { 
   max-width: 100vw;
   overflow-x: hidden;
-  
+  min-height: 100vh;
 }
 
 @theme {
-  --font-Figtree: Figtree, sans-serif;
-  --font-FigtreeBold: Figtree-Bold, sans-serif;
-  --font-FigtreeMedium: Figtree-Medium, sans-serif;
-  --font-FigtreeSemiBold: Figtree-SemiBold, sans-serif;
-  --font-FigtreeExtraBold: Figtree-ExtraBold, sans-serif;
+  --font-sans: "Figtree", sans serif;
+  --font-bold: "Figtree-Bold", sans serif;
+}
+
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/Figtree-Regular.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Figtree-Bold";
+  src: url("/Figtree-Bold.ttf") format("truetype");
+  font-weight: 400;
+  font-style: Bold;
 }

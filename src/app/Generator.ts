@@ -36,7 +36,7 @@ function getTypePattern(c1: string, c2: string, c3: string): string {
   return "mixed";
 }
 
-export function checkSecurity(password: string): number {
+export function checkSecurity(password: string[]): number {
   let score = 0;
 
   for (let i = 0; i < password.length - 2; i++) {

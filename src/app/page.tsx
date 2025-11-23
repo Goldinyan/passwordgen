@@ -7,7 +7,7 @@ import MainView from "./mainView";
 export default function Home() {
   
   return (
-    <div className="bg-Xprimary dark:bg-Xprimary-dark w-full h-full min-h-screen ">
+    <div className=" overflow-x-hidden  z-0 w-full h-full min-h-screen ">
      <MainView /> 
     </div>
   );
