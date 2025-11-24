@@ -95,6 +95,9 @@ export function checkSecurity(password: string[]): number {
 
   const maxScore = 28;
   const percentage = Math.min((score / maxScore) * 100, 100);
+  if(percentage < 0){
+    return 0;
+  }
   return Number(percentage.toFixed(2));
 }
 

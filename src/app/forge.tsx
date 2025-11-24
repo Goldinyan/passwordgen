@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { checkSecurity, createPerfectPassword } from "./Generator";
+import { Copy, Tag } from "lucide-react";
 
 type Filter = {
   small: boolean;
@@ -34,6 +35,10 @@ export default function Forge() {
     ...symbolChars,
   ]);
 
+  useEffect(() => {
+    setSecurityLevel(checkSecurity(createdPassword));
+  }, [createdPassword]);
+
   const filterOptions = [
     { key: "small", label: "small", hint: "a–z" },
     { key: "capital", label: "capital", hint: "A–Z" },
@@ -50,9 +55,7 @@ export default function Forge() {
     if (filter.symbols) charPool = [...charPool, ...symbolChars];
 
     setCharPool(charPool);
-
   }, [filter]);
-
 
   const generatePassword = () => {
     let result = "";
@@ -65,50 +68,56 @@ export default function Forge() {
   };
 
   const generatePerfectPassword = () => {
-    setFilter({small: true, capital: true, numbers: true, symbols:true});
+    setFilter({ small: true, capital: true, numbers: true, symbols: true });
     setPassword([]);
     setCreatedPassword(createPerfectPassword().split(""));
-  }
+  };
 
   useEffect(() => {
     const sec = checkSecurity(password);
+    console.log(sec);
     setSecurityLevel(sec);
   }, [password]);
 
-  
+  useEffect(() => {
+    setCreatedPassword(createPerfectPassword().split(""));
+  }, []);
 
+  const skipAnimation = () => {
+    setPassword(createdPassword);
+  };
 
   useEffect(() => {
     const pass = createdPassword;
-
-    
-    let i = 0;
-    let j = 0;
+    console.log(createdPassword);
 
     if (animations) {
-      const interval = setInterval(() => {
-        setPassword((prev) => {
-          const cur = [...prev];
-          if (cur.length < pass.length) cur.length = pass.length;
+      pass.forEach((targetChar, i) => {
+        setTimeout(() => {
+          let j = 0;
+          const interval = setInterval(() => {
+            setPassword((prev) => {
+              const next = [...prev];
 
-          cur[i] = charPool[j];
-          j++;
+              if (next.length < pass.length) {
+                next.length = pass.length;
+              }
 
-          if (j >= charPool.length) j = 0;
+              if (j >= 6) {
+                next[i] = targetChar;
 
-          if (cur[i] === pass[i]) {
-            i++;
-            j = 0;
-            if (i >= pass.length) {
-              clearInterval(interval);
-            }
-          }
+                clearInterval(interval);
+              } else {
+                const rand = Math.floor(Math.random() * charPool.length);
+                j++;
+                next[i] = charPool[rand];
+              }
 
-          return cur;
-        });
-      }, 50);
-
-      return () => clearInterval(interval);
+              return next;
+            });
+          }, 200);
+        }, i * 500);
+      });
     } else {
       setPassword(pass);
     }
@@ -116,18 +125,55 @@ export default function Forge() {
 
   return (
     <>
-      <div className="mt-60 ">
-        <div className="border ">
-          <p
-            className="dark:text-white font-bold text-black text-5xl"
-            style={{ textShadow: "0 0 8px #3b82f6, 0 0 16px #3b82f6" }}
+      <div className="mt-60 flex items-center justify-center">
+        <div className="flex flex-col w-200 gap-4 h-50 z-10 items-center justify-center group ">
+          <div className="flex flex-row gap-6">
+            <p className="font-bold text-black border p-1 rounded-lg px-2 dark:border-Xborder-dark  dark:text-white">Animations</p>
+            <p className="font-bold text-black border p-1 rounded-lg px-2 dark:border-Xborder-dark  dark:text-white">
+              Skip Animations
+            </p>
+            <p className="font-bold border p-1 rounded-lg px-2 dark:border-Xborder-dark text-black  dark:text-white">Duration</p>
+          </div>
+          <div
+            style={{
+              width: Math.max(password.length * 2, 500), // 8px pro Zeichen
+              transition: "width 300ms ease",
+            }}
+            className="mx-auto relative w-50 h-30 items-center justify-center flex"
           >
-            {password}
-          </p>
-        </div>
-        <div>
-            <p className="dark:text-white" onClick={() => generatePassword()}>normal</p>
-            <p className="dark:text-white" onClick={() => generatePerfectPassword()}>perfect</p>
+            <svg
+              className="absolute inset-0 w-full h-full z-0"
+              viewBox="0 0 420 80"
+              preserveAspectRatio="none"
+            >
+              <rect
+                x="0"
+                y="0"
+                width="100%"
+                height="100%"
+                rx="12"
+                ry="12"
+                fill="none"
+                stroke="#2A2A2A"
+                strokeWidth="1"
+                style={{ transition: "stroke-dashoffset 0.8s ease-in-out" }}
+              />
+            </svg>
+            <div className="flex flex-row">
+              {password.map((char, idx) => (
+                <p
+                  key={idx + "-" + char}
+                  className={`slot-char-base z-20  ${
+                    char === createdPassword[idx] ? "shuffle" : "final"
+                  } hover font-bold text-black  dark:text-white text-5xl`}
+                >
+                  {char}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <Copy className="mb-5 ml-4 opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
       </div>
     </>

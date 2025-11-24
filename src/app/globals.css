@@ -26,6 +26,45 @@ body {
 }
 
 
+
+
+@keyframes slot-shuffle {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  50%  { transform: translateY(00%); opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+
+
+
+.slot-char-base {
+  display: inline-block;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  pointer-events: auto;
+}
+
+.slot-char-base.shuffle { animation: slot-shuffle 0.3s ease-in-out; }
+.slot-char-base.final   { animation: slot-final 0.3s ease-out forwards; }
+
+.slot-char-base:hover {
+  transform: translateY(-10%);
+  opacity: 0.8;
+}
+
+@keyframes slot-shuffle {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  50%  { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+@keyframes slot-final {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+
+
+
+
 @font-face {
   font-family: "Figtree";
   src: url("/Figtree-Regular.ttf") format("truetype");
